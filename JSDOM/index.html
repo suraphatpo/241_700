@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- ชื่อ: <input type="text"
+    name="faname"
+    value="ชื่อทอดสอบ"
+    id="fname"
+    class="input"> -->
+
+    <!-- นามสกุล: <input
+    id="Iname"
+    type="text"
+    name="Iname"
+    value="นามสกุลทดสอบ"
+    class="input"> -->
+
+    <!-- งานอดิเรก:
+    <input type="checkbox" name="fanme" value="ฟุตบอล">ฟุตบอล
+    <input type="checkbox" name="fanme" value="บาสเกตบอล">บาสเกตบอล
+    <input type="checkbox" name="fanme" value="ว่ายน้ำ">ว่ายน้ำ -->
+    
+    <!-- <button onclick="userClick()">Click ME</button> 
+    <div onclick="divClick()">Click div</div> -->
+
+    <input type="radio" name="gender" value="male" onchange="changeGender()"> Male
+    <input type="radio" name="gender" value="female" onchange="changeGender()"> Female
+    <script>
+        // let fanameInput = document.getElementById('faname')
+        // console.log(fanameInput.value)
+        // let InameInput = document.getElementById('Iname')
+        // console.log(InameInput.value)
+
+        // let inputs=document.getElementsByClassName('input');
+        // console.log(inputs.length);
+        // for (let i=0; i <input.length;i++){
+        //     console.log(inputs[i].value);
+        // }
+
+        // let inputs=document.querySelectorAll('#fname');
+        // console.log(inputs.value)
+
+        // let checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        // console.log(checkboxes);
+        // for (let i =0; i<checkboxes.length; i++){
+        //     console.log(checkboxes[i].value);
+        // }
+
+        // function userClick(){
+        //     console.log("Button wae clicked!")
+        // }
+        // function divClick(){
+        //     console.log("Div wads Clicked!")
+        // }
+        function changeGender(){
+            //เลือก gender ทั้งหมด
+            let genders = document.querySelectorAll('input[name="gender"]');
+        
+            //ดูว่าอันไหนมัน  check
+            for(let i=0; i<genders.length; i++){
+                if (genders[i].checked){
+                    console.log("Gender selected: "+genders[i].value);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
