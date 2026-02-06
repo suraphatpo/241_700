@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0 
+    container_name: mysql_db_700
+
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: webdb
+    ports:
+      - "8700:3306"
+    volumes:
+      - mysql_data700:/var/lib/mysql
+    networks:
+      - weblab700
+    restart: always
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyasmin_700
+    environment:
+      PMA_HOST: db #ใช้ชื่อ Service "db"เเทนชื่อ Container เพื่อความยืดหยุ่นในระบบ Network
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: root
+      UPLOAD_LIMIT: 64M #เพิ่มลืมืตการอัปโหลดไฟล์ SQl
+    ports:
+      - "8701:80"
+    depends_on:
+      - db
+    networks: 
+      - weblab700
+    restart: always
+
+networks:
+  weblab700:
+    driver: bridge
+
+volumes:
+  mysql_data700:
+    driver: local
