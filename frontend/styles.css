@@ -52,7 +52,8 @@ body {
 }
 
 /* สไตล์ Input และ Textarea */
-.form, textarea {
+.form,
+textarea {
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
@@ -61,7 +62,8 @@ body {
     transition: border-color 0.3s;
 }
 
-.form:focus, textarea:focus {
+.form:focus,
+textarea:focus {
     border-color: #007bff;
 }
 
@@ -107,4 +109,22 @@ textarea {
 
 .button:active {
     transform: scale(0.98);
+}
+
+.message {
+    background-color: lightgray;
+    padding: 10px;
+    margin-bttom: 10px;
+    border-radius: 6px;
+    display: none;
+}
+
+.message.success {
+    background-color: #a6f3b8;
+    display: block;
+}
+
+.message.danger {
+    background-color: #ff9aa2;
+    display: block;
 }
