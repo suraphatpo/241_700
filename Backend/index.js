@@ -1,11 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const app = express();
 const mysql = require('mysql2/promise')
-app.use(bodyParser.json());
 const cors = require('cors')
-app.use(cors());
 const port = 8000;
+const app = express();
+app.use(bodyParser.json());
+app.use(cors());
 
 let conn = null;
 
@@ -26,19 +26,54 @@ app.get('/users', async (req, res) => {
     res.json(results[0]);
 });
 
+const validateData = (userData) => {
+    let errors = [];
+    if (!userData.firstName) {
+        errors.push('กรุณากรอกชื่อ');
+    }
+    if (!userData.lastName) {
+        errors.push('กรุณากรอกนามสกุล');
+    }
+    if (!userData.age) {
+        errors.push('กรุณากรอกอายุ');
+    }
+    if (!userData.gender) {
+        errors.push('กรุณาเลือกเพศ');
+    }
+    if (!userData.interests) {
+        errors.push('กรุณาเลือกงานอดิเรก');
+    }
+    if (!userData.description) {
+        errors.push('กรุณากรอกคำอธิบาย');
+    }
+    return errors;
+}
+
 //path = POST /users สำหรับเพิ่ม user ใหม่
 app.post('/users', async (req, res) => {
     try {
         let user = req.body;
-        const results = await conn.query('INSERT INTO users SET ?', user);
-        console.log('result: ', results);
+        const errors = validateData(user);
+        if (errors.length > 0){
+            throw{
+                message: "กรุณากรอกข้อมูลให้ครบถ้วน",
+                errors: errors
+            }
+        }
+        const results = await conn.query("INSERT INTO users SET ?",user);
+        console.log("results:",results);
         res.json({
-            message: 'User added susscessfully',
+            message: "User added succesfully",
             data: results[0]
         });
     } catch (error) {
+        const errorMessage = error.message || "Error aading user";
+        const errors = error.errors || [];
         console.error('Error inserting user:', error);
-        res.status(500).json({ message: 'Error adding user' });
+        res.status(500).json({ 
+            message: errorMessage,
+            errors: errors
+        });
     }
 })
 

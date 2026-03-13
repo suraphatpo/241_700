@@ -63,9 +63,12 @@ const submitData = async () => {
     } catch (error) {
         console.log('Error Message:', error.message);
         console.log('Error Details:', error.errors);
-        //if (error.response) {
-        //  console.error('Error response:', error.response.data);
-        // }
+
+        if (error.response) {
+        console.error('Error response:', error.response);
+        error.message = error.response.data.message
+        error.errors = error.response.data.errors
+        }
         let htmlData = '<div>'
         htmlData += `<div>` + error.message + `</div>`;
         htmlData += '<ul>';
@@ -78,6 +81,5 @@ const submitData = async () => {
 
         messageDOM.innerHTML = htmlData;
         messageDOM.className = "message danger";
-
     }
 } 
